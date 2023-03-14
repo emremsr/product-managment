@@ -1,28 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Navbar />
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
+    <Footer />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
-  name: 'App',
+  name: "ProductManagmentApp",
   components: {
-    HelloWorld
-  }
-}
+    Navbar,
+    Footer,
+  },
+  data() {
+    return {};
+  },
+
+  created() {
+    this.$store.dispatch("getTradeResult");
+    this.$store.dispatch("initApp");
+  },
+
+  methods: {},
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-leave-active {
+  transition: opacity 0.3s ease-out;
 }
 </style>
